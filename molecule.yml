@@ -84,17 +84,5 @@ docker:
     ansible_groups:
       - group1
 
-  - name: fedora24
-    image: fedora
-    image_version: 24
-    privileged: True
-    environment:
-      container: docker
-    volume_mounts:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    command: "/usr/lib/systemd/systemd"
-    ansible_groups:
-      - group1
-
 verifier:
   name: testinfra
