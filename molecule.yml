@@ -13,14 +13,14 @@ driver:
   name: docker
 docker:
   containers:
+
   - name: ubuntu1404
     image: ubuntu
     image_version: 14.04
     privileged: True
     environment:
       container: docker
-    volume_mounts:
-      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/sbin/init"
     ansible_groups:
       - group1
 
@@ -32,7 +32,7 @@ docker:
       container: docker
     volume_mounts:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    command: "/sbin/init"
+    command: "/lib/systemd/systemd"
     ansible_groups:
       - group1
 
@@ -44,7 +44,7 @@ docker:
       container: docker
     volume_mounts:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    command: "/usr/sbin/init"
+    command: "/usr/lib/systemd/systemd"
     ansible_groups:
       - group1
 
@@ -56,20 +56,9 @@ docker:
       container: docker
     volume_mounts:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/sbin/init"
     ansible_groups:
       - group1
-
-  #- name: debian7
-  #  image: debian
-  #  image_version: 7
-  #  privileged: True
-  #  environment:
-  #    container: docker
-  #  volume_mounts:
-  #    - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-  #  command: "/sbin/init && apt-get install procps -y"
-  #  ansible_groups:
-  #    - group1
 
   - name: debian8
     image: debian
@@ -79,8 +68,21 @@ docker:
       container: docker
     volume_mounts:
       - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-    command: "/sbin/init"
+    command: "/lib/systemd/systemd"
     ansible_groups:
       - group1
+
+  - name: fedora24
+    image: fedora
+    image_version: 24
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/usr/lib/systemd/systemd"
+    ansible_groups:
+      - group1
+
 verifier:
   name: testinfra

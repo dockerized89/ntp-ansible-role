@@ -22,3 +22,10 @@ def test_ntp_service(Service):
     ntp = Service("ntp")
     ntpd = Service("ntpd")
     assert ntp.is_running or ntpd.is_running
+
+
+def test_ntp_config_is_ansible_managed(File):
+    f = File("/etc/ntp.conf")
+    assert f.exists
+    assert f.contains("Ansible managed")
+
