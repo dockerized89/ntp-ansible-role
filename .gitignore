@@ -1,0 +1,5 @@
+.molecule
+.tox
+.idea
+__pycache__/
+.cache

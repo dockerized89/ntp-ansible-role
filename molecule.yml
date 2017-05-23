@@ -1,0 +1,86 @@
+---
+
+molecule:
+  ignore_paths:
+    - .git
+    - .vagrant
+    - .molecule
+    - .tox
+
+dependency:
+  name: galaxy
+driver:
+  name: docker
+docker:
+  containers:
+  - name: ubuntu1404
+    image: ubuntu
+    image_version: 14.04
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    ansible_groups:
+      - group1
+
+  - name: ubuntu1604
+    image: ubuntu
+    image_version: 16.04
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/sbin/init"
+    ansible_groups:
+      - group1
+
+  - name: centos7
+    image: centos
+    image_version: centos7
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/usr/sbin/init"
+    ansible_groups:
+      - group1
+
+  - name: centos6
+    image: centos
+    image_version: centos6
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    ansible_groups:
+      - group1
+
+  #- name: debian7
+  #  image: debian
+  #  image_version: 7
+  #  privileged: True
+  #  environment:
+  #    container: docker
+  #  volume_mounts:
+  #    - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+  #  command: "/sbin/init && apt-get install procps -y"
+  #  ansible_groups:
+  #    - group1
+
+  - name: debian8
+    image: debian
+    image_version: 8
+    privileged: True
+    environment:
+      container: docker
+    volume_mounts:
+      - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+    command: "/sbin/init"
+    ansible_groups:
+      - group1
+verifier:
+  name: testinfra
