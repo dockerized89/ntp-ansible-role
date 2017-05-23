@@ -28,4 +28,3 @@ def test_ntp_config_is_ansible_managed(File):
     f = File("/etc/ntp.conf")
     assert f.exists
     assert f.contains("Ansible managed")
-

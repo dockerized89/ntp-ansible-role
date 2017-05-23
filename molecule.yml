@@ -6,6 +6,7 @@ molecule:
     - .vagrant
     - .molecule
     - .tox
+    - tests
 
 dependency:
   name: galaxy
